@@ -1,0 +1,151 @@
+<%include file="HEADER.tmpl"/>
+<script type='text/javascript'>
+    activeTab = "global";
+    function saveSettings() {
+        var retarr = {}
+        $(":input").each(function(i) {
+            retarr[$(this).attr('id')] = $(this).val();
+        });
+
+        $("#allopts").val(JSON.stringify(retarr));
+    }
+
+    function clearSettings() {
+        $("#allopts").val("RESET");
+    }
+
+    function switchTab(tab) {
+        $("#optsect_"+activeTab).hide();
+        $("#optsect_"+tab).show();
+        $("#tab_"+activeTab).removeClass("active");
+        $("#tab_"+tab).addClass("active");
+        activeTab = tab;
+    }
+
+</script>
+    <h2>Settings</h2>
+% if updated:
+<div class="alert alert-success">
+ <button type="button" class="close" data-dismiss="alert">&times;</button>
+ <h4>Success!</h4>
+ Settings updated. These will take effect the next time you run a scan.
+</div>
+% endif
+<form class="form" action='${docroot}/savesettings' method='POST'>
+<div style='text-align: left'>
+    <input type=hidden id='allopts' name='allopts' value=''>
+    <input type=hidden id='token' name='token' value="${token}">
+    <button onClick='clearSettings();' class='btn btn-danger'>Reset to Factory Default</button>
+    <button onClick='saveSettings();' class='btn btn-primary'>Save Changes</button>
+<br><br>
+</div>
+
+<div class="tabbable tabs-left">
+<ul class="nav nav-tabs">
+<li id='tab_global' class="active"><a href='#' onClick='switchTab("global");'>Global</a></li>
+% for mod in sorted(opts['__modules__'].keys()):
+    <% keylist = dict((k, v) for k, v in opts['__modules__'][mod]['opts'].iteritems() if not k.startswith('_')) %>
+    % if len(keylist) > 0:
+        <li id='tab_${mod}'><a href='#' onClick='switchTab("${mod}");' >${opts['__modules__'][mod]['name']}</a></li>
+    % endif
+% endfor
+</ul>
+<div id='optsect_global' class="tab-content">
+<h4>Global Settings</h4>
+<table class='table table-bordered table-striped'>
+<thead><tr> <th>Option</th> <th>Value</th></tr></thead><tbody>
+% for opt in sorted(opts.keys()):
+    % if not opt.startswith("__"):
+    <tr><td>${opts['__globaloptdescs__'][opt]}</td><td>
+        % if type(opts[opt]) is int:
+            <input id='${opt}' class='input-mini' type=text value="${opts[opt]}">
+        % endif
+        % if type(opts[opt]) is str:
+            <input id='${opt}' class='input-xxlarge' type=text value="${opts[opt]}">
+        % endif
+        % if type(opts[opt]) is bool:
+        <%
+            if opts[opt] == True:
+                seltrue = "selected"
+                selfalse = ""
+            else:
+                selfalse = "selected"  
+                seltrue = ""
+        %>
+            <select id='${opt}'>
+                <option value=1 ${seltrue}>True</option>
+                <option value=0 ${selfalse}>False</option>
+            </select>
+        % endif
+        % if type(opts[opt]) is list and type(opts[opt][0]) is str:
+            <% expandedopt = ','.join(opts[opt]) %>
+            <input id='${opt}' class='input-xxlarge' type=text value="${expandedopt}">
+        % endif
+        % if type(opts[opt]) is list and type(opts[opt][0]) is int:
+            <% expandedopt = ','.join(str(x) for x in opts[opt]) %>
+            <input id='${opt}' class='input-xxlarge' type=text value="${expandedopt}">
+        % endif
+    </td></tr>
+    % endif
+% endfor
+</tbody>
+</table>
+</div>
+% for mod in sorted(opts['__modules__'].keys()):
+    <% modopts = opts['__modules__'][mod]['opts'] %>
+    <div id='optsect_${mod}' style='display: none' class="tab-content">
+    <h4>${mod} Settings</h4>
+    <table class='table table-bordered table-striped'>
+    <thead><tr> <th>Option</th> <th>Value</th></tr></thead>
+    <tbody>
+
+    % for opt in sorted(opts['__modules__'][mod]['opts'].keys()):
+        % if not opt.startswith("_"):
+            <%
+            if not opts['__modules__'][mod].has_key('optdescs'):
+                optdesc = "No description available."
+            else:
+                optdesc = opts['__modules__'][mod]['optdescs'][opt]
+            %>
+
+            <tr><td>${optdesc}</td><td>
+            % if type(modopts[opt]) is int:
+                <input id='${mod}:${opt}' class='input-mini' type=text value="${modopts[opt]}">
+            % endif
+            % if type(modopts[opt]) is str:
+                <input id='${mod}:${opt}' class='input-xxlarge' type=text value="${modopts[opt]}">
+            % endif
+            % if type(modopts[opt]) is bool:
+            <%
+                if modopts[opt] == True:
+                    seltrue = "selected"
+                    selfalse = ""
+                else:
+                    selfalse = "selected"
+                    seltrue = ""
+            %>
+                <select id='${mod}:${opt}'>
+                    <option value=1 ${seltrue}>True</option>
+                    <option value=0 ${selfalse}>False</option>
+                </select>
+            % endif
+            % if type(modopts[opt]) is list and type(modopts[opt][0]) is str:
+                <% expandedopt = ','.join(modopts[opt]) %>
+                <input id='${mod}:${opt}' class='input-xxlarge' type=text value="${expandedopt}">
+            % endif
+            % if type(modopts[opt]) is list and type(modopts[opt][0]) is int:
+                <% expandedopt = ','.join(str(x) for x in modopts[opt]) %>
+                <input id='${mod}:${opt}' class='input-xxlarge' type=text value="${expandedopt}">
+            % endif
+
+            </td></tr>
+        % endif
+    % endfor
+    </tbody>
+    </table>
+    </div>
+% endfor
+</div>
+</form>
+<br><br>
+<%include file="FOOTER.tmpl"/>

@@ -1,0 +1,48 @@
+table.tablesorter thead tr .header {
+cursor: pointer;
+background-image: url(/static/img/sortbg.gif);     
+background-repeat: no-repeat; 
+background-position: center left; 
+padding-left: 20px; 
+margin-left: -1px; 
+}
+
+a.link:hover {
+    cursor: pointer;
+}
+
+.dend-node circle {
+fill: #fff;
+stroke: steelblue;
+stroke-width: 1.5px;
+}
+
+.dend-node {
+font: 10px sans-serif;
+}
+
+.dend-link {
+fill: none;
+stroke: #ccc;
+stroke-width: 1.5px;
+}
+
+.axis path,
+.axis line {
+fill: none;
+stroke: #000;
+shape-rendering: crispEdges;
+}
+
+.bar {
+fill: orange;
+}
+
+.bar:hover {
+fill: orangered ;
+}
+
+.x.axis path {
+display: none;
+}
+

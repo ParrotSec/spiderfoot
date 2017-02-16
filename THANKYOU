@@ -1,0 +1,38 @@
+These people are owed some credit for their contributions to SpiderFoot, be it
+bug fixes or new functionality. Thank you!
+
+- Chris Weber (http://www.casaba.com/blog/author/chris/)
+    - Many recommendations for improvement
+
+- Henri Salo (https://github.com/fgeek)
+    - Identified XSS issues (issue #29)
+
+- MarioVilas (https://github.com/MarioVilas)
+    - Contributed a fix for CSV exports (issue #35)
+
+- johnnykv (https://github.com/johnnykv)
+    - Contributed improved pip instructions
+
+- Russ McRee (@holisticinfosec)
+    - Identified XSS/CSRF issues
+
+- Andrea De Pasquale (https://github.com/adepasquale)
+    - Cache directory fix
+
+- Viyat Bhalodia (https://github.com/delta24)
+    - Prettied up README.md
+
+- Gormogon (https://github.com/Gormogon)
+    - Huge code clean up for PEP 8 compliance
+
+- Lin Zhemin (https://github.com/miaoski)
+    - Added the ability to use a configurable document root
+
+- Micah Hoffman (https://github.com/WebBreacher)
+    - Comprehensive list of URLs for identifying account usage in modules/sfp_accounts.py
+
+- Michael Pellon (https://github.com/mpellon)
+    - Providing a Dockerfile
+
+- HackershubNL (https://github.com/HackershubNL)
+    - Contributions towards authentication functionality

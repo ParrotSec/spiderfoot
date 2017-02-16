@@ -1,0 +1,12 @@
+spiderfoot (2.8.0-2parrot0) testing; urgency=medium
+
+  * Add Makefile and launchers
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Thu, 16 Feb 2017 01:43:04 +0100
+
+spiderfoot (2.8.0-1parrot0) unstable; urgency=medium
+
+  * Initial release
+  * Debianize old package
+
+ -- Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>  Thu, 16 Feb 2017 00:52:00 +0100

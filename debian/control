@@ -1,0 +1,26 @@
+Source: spiderfoot
+Section: extra
+Priority: optional
+Maintainer: Lorenzo "Palinuro" Faletra <palinuro@parrotsec.org>
+Build-Depends: debhelper (>= 9), dh-python, python-all, python-setuptools, python3-all, python3-setuptools
+Standards-Version: 3.9.8
+Homepage: https://www.spiderfoot.net
+X-Python-Version: >= 2.6
+X-Python3-Version: >= 3.2
+Vcs-Git: https://github.com/parrotsec/spiderfoot.git
+Vcs-Browser: https://github.com/parrotsec/spiderfoot.git
+
+Package: spiderfoot
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}, python-lxml, python-netaddr, python-m2crypto, python-cherrypy3, python-mako, python-stem, swig
+Description: open source intelligence automation tool
+ SpiderFoot is an open source intelligence automation tool.
+ .
+ Its goal is to automate the process of gathering intelligence
+ about a given target, which may be an IP address, domain name,
+ hostname or network subnet.
+ .
+ SpiderFoot can be used offensively, i.e. as part of a black-box
+ penetration test to gather information about the target or defensively
+ to identify what information your organisation is
+ freely providing for attackers to use against you.
