@@ -1,8 +1,0 @@
-#! /bin/sh
-
-(
-sleep 2
-spiderfoot-gui
-) &
-spiderfoot-server
-
